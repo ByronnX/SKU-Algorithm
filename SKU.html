@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkuArr</title>
+  </head>
+  <body>
+    <h1>SKU</h1>
+    <script>
+      const goodsType = "鞋子";
+      const specList = [
+        ["运动鞋", "休闲裤"],
+        ["36码", "41码"],
+        ["红色", "白色"],
+        ["高帮", "低帮"],
+      ];
+
+      const getSkuArr = (specList) => {
+        // 递归的退出条件
+        if(specList.length === 0){            
+            return [[]];
+        }
+        // 拿到每一次遍历的第一行数组
+        const firstArr =  specList.shift()
+        // 深递归，不影响原始数组,这个参数其实也就是res，也就是这个函数的返回值
+        const skuArr = getSkuArr([...specList])
+        // console.log('firstArr',firstArr);
+        console.log('skuArr',skuArr);
+        const res = []
+        firstArr.forEach(item =>{
+            // 每一个item就是即将新增的每一项
+            // console.log('item----------------------------',item);
+            skuArr.forEach(el=>{
+                // 每一个el就是即将跟新增每一项的一起结合
+                res.push([item,...el])
+                // console.log('el',el);
+                // console.log('res',res);
+            })
+        })
+        return res
+      };
+      const result = getSkuArr(specList).map(el =>{
+        return `${goodsType}-${el.join('-')}`
+      });
+      console.log('result',result);
+    </script>
+  </body>
+</html>
